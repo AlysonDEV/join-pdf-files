@@ -23,14 +23,15 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pyinstaller
+        pip install PyPDF2  # Certifique-se de instalar o PyPDF2
 
     - name: Build executable
       run: |
-        pyinstaller --onefile --name=main main.py
+        pyinstaller --onefile --name=main --hidden-import=PyPDF2 main.py
       shell: cmd
 
     - name: Upload the executable
-      uses: actions/upload-artifact@v4  # Atualizando para a versão v4
+      uses: actions/upload-artifact@v4
       with:
         name: exe-file
         path: dist/main.exe
